@@ -1,4 +1,10 @@
 /*
+	| PONER LAS LLAVES PRIMARIAS EN ticket_estados_tb_estadoventanilla y en el
+		tb_ventanilla_estados_tb_estadoventanilla en los identificadores
+*/
+
+
+/*
         INGRESAR REGISTROS
 
 */
@@ -61,7 +67,7 @@ AS
 			t1."fecha"
 		FROM tb_ventanilla
 			left outer JOIN (
-					select DISTINCT ON ("tbVentanillaId")   * from tb_ventanilla_estados_tb_estadoventanilla
+					select DISTINCT ON ("tbVentanillaId")    * from tb_ventanilla_estados_tb_estadoventanilla
 	where fecha
 						BETWEEN CURRENT_DATE and CURRENT_DATE + INTERVAL
 '1 day'
