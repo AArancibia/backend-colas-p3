@@ -77,6 +77,11 @@ export class Ticket {
   })
   idventanilla: number;
 
+  @Column('integer', {
+    nullable: true,
+  })
+  idreferencia: number;
+
   @ManyToOne(type => Tipoticket, tipoTicket => tipoTicket.idtipoticket)
   @JoinColumn({ name: 'idtipoticket' })
   tipoTicket: Tipoticket;

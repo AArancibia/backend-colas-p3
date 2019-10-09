@@ -46,6 +46,9 @@ export class TicketDto {
   })
   idtipoticket: number;
 
+  @ApiModelProperty()
+  idreferencia: number;
+
   /**
    * Campo preferencial
    */

@@ -18,7 +18,7 @@ import { AuthGuard } from 'src/shared/guards/auth.guard';
  */
 @ApiUseTags('Ticket')
 @Controller('ticket')
-@UseGuards(new AuthGuard())
+//@UseGuards(new AuthGuard())
 export class TicketController {
   constructor(private ticketService: TicketService) {}
 
@@ -139,6 +139,14 @@ export class TicketController {
     @Param('idventanilla') idventanilla: number,
   ) {
     return this.ticketService.derivarOtraVentanilla(idticket, idventanilla);
+  }
+
+  @Post('/referencia')
+  async buscarReferencia(
+    //@Param('id') idreferencia?: number,
+    @Body() data,
+  ) {
+    return this.ticketService.encontrarReferencia(data);
   }
 
   /**

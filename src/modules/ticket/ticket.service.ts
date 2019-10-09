@@ -12,6 +12,7 @@ import { TicketGateway } from '../../gateways/ticket.gateway';
 import { Detestadoticket } from './detestadoticket/detestadoticket.entity';
 import { VentanillaService } from '../ventanilla/ventanilla.service';
 import { DetestadoticketService } from './detestadoticket/detestadoticket.service';
+import { Ventanillareferencia } from '../ventanillareferencia/ventanillareferencia.entity';
 const threads = require('threads');
 const config  = threads.config;
 config.set({
@@ -45,10 +46,21 @@ export class TicketService {
     @InjectRepository( Tipoticket ) private tipoTicketRepository: Repository< Tipoticket >,
     @InjectRepository( Administrado ) private administradoRepository: Repository< Administrado >,
     @InjectRepository( Ventanilla ) private ventanillaRepository: Repository< Ventanilla >,
+    @InjectRepository(Ventanillareferencia)
+    private ventanillaReferenciaRepository: Repository<Ventanillareferencia>,
     private ventanillaService: VentanillaService,
     private detEstadoTicketService: DetestadoticketService,
     private wsTicket: TicketGateway,
   ) {}
+
+  async encontrarReferencia(data) {
+    const ventanillaReferencia = await this.ventanillaReferenciaRepository.find(
+      {
+        where: data,
+      },
+    );
+    return ventanillaReferencia;
+  }
 
   /**
    * Servicio para actualizazr idtematica o idtramite del Ticket
@@ -104,13 +116,14 @@ export class TicketService {
    * @returns {Ticket} Nuevo Ticket creado.
    */
   async crearTicket( ticket: TicketDto ) {
-    const { idtipoticket, preferencial, idadministrado, urgente } = ticket;
+    const { idtipoticket, preferencial, idadministrado, urgente, idreferencia } = ticket;
     const estado = await this.estadoRepository.findOne( { where: { idestado: 1 } });
     const administrado = await this.administradoRepository.findOne({ where: { id: idadministrado }});
     const nuevoTicket: Ticket = await this.ticketRepository.create({
       ...ticket,
       administrado,
       preferencial,
+      idreferencia
     });
     nuevoTicket.estados = [ estado ];
     const abrTicket = await this.obtenerTipoTicket( idtipoticket );

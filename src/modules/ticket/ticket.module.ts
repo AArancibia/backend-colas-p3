@@ -19,6 +19,7 @@ import { Estadoventanilla } from '../ventanilla/estadoventanilla/estadoventanill
 import { Detestadoventanilla } from '../ventanilla/detestadoventanilla/detestadoventanilla.entity';
 import { Detestadoticket } from './detestadoticket/detestadoticket.entity';
 import { Usuario } from '../usuario/usuario.entity';
+import { Ventanillareferencia } from '../ventanillareferencia/ventanillareferencia.entity';
 
 /**
  * Modulo de Ticket
@@ -32,6 +33,7 @@ import { Usuario } from '../usuario/usuario.entity';
         Detestadoventanilla,
         Detestadoticket,
         Usuario,
+        Ventanillareferencia
       ],
     ),
     TipoticketModule,
