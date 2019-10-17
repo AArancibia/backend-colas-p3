@@ -168,11 +168,10 @@ export class VentanillaService {
   async editarTipoAtencion(id: number, tipoatencion: string) {
     let ventanillaActualizada = await this.ventanillaRepository.findOne({
       where: { id },
-      select: ['idusuario', 'codigoventanilla', 'tipoatencion', 'ubicacion'],
+      select: ['idusuario', 'codigoventanilla', 'ubicacion'],
     });
     await this.ventanillaRepository.update(id, {
       ...ventanillaActualizada,
-      tipoatencion,
     });
     ventanillaActualizada = await this.ventanillaRepository.findOne({
       where: { id },
